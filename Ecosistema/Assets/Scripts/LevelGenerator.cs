@@ -19,7 +19,7 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] TMP_InputField iteNumber_IF;
     [SerializeField] Toggle steppedToggle;
 
-    private List<GameObject> oldCells = new List<GameObject>();
+    public List<GameObject> oldCells = new List<GameObject>();
 
     int iteCount = 0;
     int [,]cells;
@@ -121,6 +121,11 @@ public class LevelGenerator : MonoBehaviour
        // Debug.Log(x + ", " + y + " =" + cells[x, y]);
         return cells[x, y];
     }
+    }
+
+    public List<GameObject> GetCells()
+    {
+        return oldCells;
     }
 }
 
