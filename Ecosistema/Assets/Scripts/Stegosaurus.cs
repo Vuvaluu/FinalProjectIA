@@ -2,15 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Stegosaurus : MonoBehaviour
+public class Stegosaurus : Dinosaur
 {
-    // Start is called before the first frame update
-    void Start()
+    
+   protected int currentPoopingUrge, maxPoopingUrge;
+
+    protected override void Start()
     {
-        
+        base.Start();
+        maxPoopingUrge = 100;
+        currentPoopingUrge = Random.Range(0, maxPoopingUrge/2);
     }
 
-    // Update is called once per frame
     void Update()
     {
         

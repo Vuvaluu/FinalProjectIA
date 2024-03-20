@@ -43,27 +43,4 @@ public class SteeringBehaviors
       }
       return desiredVel;
   }
-
-  public static void Wander(Dinosaur agent)
-  {
-    int randX = 0;
-    int randZ = 0;
-    float timeToWait = 0f;
-    float elapsedTime = 0f;
-    bool canMove = true;
-    float time = Time.time;
-    // Wander around
-    if (canMove == true) {
-    randX = Random.Range(-10, 10);
-    randZ = Random.Range(-10, 10);
-    Seek(agent, new Vector3(randX, 0, randZ));
-     canMove = false;
-} else {
-    timeToWait = Random.Range(5, 20);
-    if(time > elapsedTime) {
-    elapsedTime = time + timeToWait;
-    canMove = true;
-        }
-    }
-  }
 }

@@ -4,24 +4,38 @@ using UnityEngine;
 
 public class Dinosaur : MonoBehaviour
 {
-    protected float maxSpeed;
-    protected float maxForce;
-    protected float slowingRadius;
-
+    [SerializeField] protected float maxSpeed;
+    [SerializeField] protected float maxForce;
+    [SerializeField] protected float slowingRadius;
+    
     protected int maxHP;
     protected int damage;
     protected int currentHP;
+    [SerializeField] protected Rigidbody rb;
+    protected State currentState;
 
-    protected Rigidbody rb;
+    //Necesidades
+    protected int currentHunger, maxHunger;
+    protected int currentThirst, maxThirst;
+    protected int currentRepUrge, maxRepUrge;
+
+    public Dinosaur mate;
+    public bool lookingForMate;
 
     protected virtual void Start()
     {
         currentHP = maxHP;
+        maxHunger = 100;
+        maxThirst = 100;
+        maxRepUrge = 100;
+        currentHunger = Random.Range(0, maxHunger/2);
+        currentThirst = Random.Range(0, maxThirst/2);
+        currentRepUrge = 0;
     }
 
-    void Update()
+    protected virtual void Update()
     {
-        
+        currentState.Update();
     }
 
     public void TakeDamage(Dinosaur enemy)
@@ -29,10 +43,42 @@ public class Dinosaur : MonoBehaviour
         currentHP = currentHP - enemy.GetDamage();
         if(currentHP <= 0)
         {
-            Destroy(gameObject);
+            Die();
         }
     }
 
+    protected void CheckHealth(){
+        if(currentHunger <= 0)
+        {
+            Die();
+        }
+        if(currentThirst <= 0)
+        {
+            Die();
+        }
+    }
+    
+    public void SetState(State state)
+    {
+        if (currentState != null) {
+            currentState.OnStateExit();
+        }
+        currentState = state;
+        Debug.Log(gameObject.name + " current state: " + state.GetType().Name);
+        if (currentState != null) {
+            currentState.OnStateEnter();
+        }
+    }
+
+    public void Drink()
+    {
+        currentThirst--;
+    } 
+
+    protected void Die()
+    {
+        Destroy(gameObject);
+    }
     public int GetDamage()
     {
         return damage;

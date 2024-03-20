@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PopulationGenerator : MonoBehaviour
 {
@@ -10,18 +11,20 @@ public class PopulationGenerator : MonoBehaviour
     [SerializeField] GameObject stegosaurusPrefab;
     [SerializeField] GameObject trexPrefab;
     [SerializeField] GameObject velociraptorPrefab;
-
-    private int numberOfApatosaurus = 10;
-    private int numberOfStegosaurus = 10;
-    private int numberOfTrex = 10;
-    private int numberOfVelociraptor = 10;
+    [SerializeField] TMP_InputField apatosaurusInputField;
+    [SerializeField] TMP_InputField stegosaurusInputField;
+    [SerializeField] TMP_InputField velociraptorInputField;
+    [SerializeField] TMP_InputField trexInputField;
+    private int numberOfApatosaurus;
+    private int numberOfStegosaurus;
+    private int numberOfVelociraptor;
+    private int numberOfTrex;
 
     void Start()
     {
         
     }
 
-    
     void Update()
     {
         
@@ -29,6 +32,11 @@ public class PopulationGenerator : MonoBehaviour
 
     public void GeneratePopulation()
     {
+        numberOfApatosaurus = int.Parse(apatosaurusInputField.text);
+        numberOfStegosaurus = int.Parse(stegosaurusInputField.text);
+        numberOfVelociraptor = int.Parse(velociraptorInputField.text);
+        numberOfTrex = int.Parse(trexInputField.text);
+
         foreach (GameObject tile in levelGenerator.GetCells())
         {
             if(tile != null && tile.tag == "Pasto")

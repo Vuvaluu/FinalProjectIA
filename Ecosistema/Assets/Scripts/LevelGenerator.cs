@@ -8,6 +8,23 @@ using Random = UnityEngine.Random;
 
 public class LevelGenerator : MonoBehaviour
 {
+    #region Singleton Pattern
+        private static LevelGenerator instance;
+        public static LevelGenerator Instance { 
+            get { 
+                return instance; 
+            } 
+        }
+        
+        private void Awake() {
+            if (instance == null) {
+                instance = this;
+            } else {
+                Destroy(this);
+            }
+            
+        }
+    #endregion
     [SerializeField] int rows;
     [SerializeField] int cols;
     [SerializeField] int ite;
@@ -19,16 +36,23 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] TMP_InputField iteNumber_IF;
     [SerializeField] Toggle steppedToggle;
 
+    [SerializeField] GameObject treePrefab1;
+    [SerializeField] GameObject treePrefab2;
     public List<GameObject> oldCells = new List<GameObject>();
+    public List<GameObject> grassTiles = new List<GameObject>();
+    public List<GameObject> treeApatosaurs = new List<GameObject>();
+    public List<GameObject> treeStegosaurs = new List<GameObject>();
 
     int iteCount = 0;
     int [,]cells;
     int nextCellsY;
     bool stepped;
     bool generate;
-
+    bool generatePlants;
+    int numberOfTrees = 100;
     void Start()
     {
+        generatePlants = true;
         generate = false;
         GenerateCA();
     }
@@ -60,6 +84,7 @@ public class LevelGenerator : MonoBehaviour
             {
                 Destroy(cell);
             }
+             oldCells.Clear();
             cells = nextCells;
             //Se itera sobre todas las generaciones para saber si ponerle blanck o full.
             for (int i = 0; i < cols; i++)
@@ -70,11 +95,26 @@ public class LevelGenerator : MonoBehaviour
                         oldCells.Add(Instantiate(blankCell, new Vector3(i, 0, j), Quaternion.identity));
                     } else if (IsFilled(i, j) == 1)
                     {
-                        oldCells.Add(Instantiate(fullCell, new Vector3(i, -0.343f, j), Quaternion.identity));
+                        oldCells.Add(Instantiate(fullCell, new Vector3(i, -0.148f, j), Quaternion.identity));
                     }
                 }
             }
         }   
+        if(iteCount >= ite)
+        {
+            if(generatePlants == true)
+            {
+                foreach (GameObject tile in oldCells)
+            {
+                if(tile != null && tile.tag == "Pasto")
+                {
+                    grassTiles.Add(tile);
+                }
+            } 
+            SpawnTrees(numberOfTrees, treePrefab1, treePrefab2, new Vector3(0, 0.239f, 0), new Vector3(0, 0.485f, 0));
+            generatePlants = false;
+            }
+        }
     } 
      
    //Se crea una grid random de 1 y 0.
@@ -126,6 +166,28 @@ public class LevelGenerator : MonoBehaviour
     public List<GameObject> GetCells()
     {
         return oldCells;
+    }
+
+    public void SpawnTrees(int numberOfTrees, GameObject treePrefab1, GameObject treePrefab2, Vector3 spawnOffset1, Vector3 spawnOffset2)
+    {
+         List<GameObject> spawnTiles = new List<GameObject>();
+        for (int i = 0; i < numberOfTrees; i++)
+        {
+            spawnTiles.Add(grassTiles[Random.Range(0, grassTiles.Count)]);
+        }
+
+        foreach (GameObject tile in spawnTiles)
+        {
+            int rand = Random.Range(0, 2);
+            if(rand == 0)
+            {
+                treeApatosaurs.Add(Instantiate(treePrefab1, tile.transform.position + spawnOffset1, Quaternion.identity));
+            }
+            else if(rand == 1)
+            {
+                treeStegosaurs.Add(Instantiate(treePrefab2, tile.transform.position + spawnOffset2, Quaternion.identity));
+            }
+        }
     }
 }
 
