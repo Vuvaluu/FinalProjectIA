@@ -10,9 +10,9 @@ public class LookingForMate : State
      float elapsedTime = 0f;
      bool canMove = true;
 
-   public LookingForMate(Dinosaur dino) : base(dino)
+   public LookingForMate(Apatosaurus apato) : base(apato)
    {
-        this.dinosaur = dino;
+        this.apatosaurus = apato;
    }
    
    public override void OnStateEnter()
@@ -22,29 +22,29 @@ public class LookingForMate : State
         timeToWait = 200f;
         elapsedTime = 0f;
         canMove = true;
-        dinosaur.lookingForMate = true;
+        apatosaurus.lookingForMate = true;
    }
 
    public override void Update()
     {
       
-          if(dinosaur.mate != null)
+          if(apatosaurus.mate != null)
           {
-               SteeringBehaviors.Seek(dinosaur, dinosaur.mate.transform.position);
-               float dist = Vector3.Distance(dinosaur.transform.position, dinosaur.mate.transform.position);
+               SteeringBehaviors.Seek(apatosaurus, apatosaurus.mate.transform.position);
+               float dist = Vector3.Distance(apatosaurus.transform.position, apatosaurus.mate.transform.position);
                if(dist < 3)
                {
-                    dinosaur.SetState(new Breeding(dinosaur));
+                    apatosaurus.SetState(new Breeding(apatosaurus));
                }
           } else {
                 if(randX != 0 && randZ != 0)
         {
-            SteeringBehaviors.Seek(dinosaur, new Vector3(randX, 2, randZ));
+            SteeringBehaviors.Seek(apatosaurus, new Vector3(randX, 2, randZ));
         }
     //Wander around
         if (canMove == true) {
-        randX = Random.Range(dinosaur.transform.position.x -300f, dinosaur.transform.position.x +300f);
-        randZ = Random.Range(dinosaur.transform.position.z -300f, dinosaur.transform.position.z +300f);
+        randX = Random.Range(apatosaurus.transform.position.x -300f, apatosaurus.transform.position.x +300f);
+        randZ = Random.Range(apatosaurus.transform.position.z -300f, apatosaurus.transform.position.z +300f);
         canMove = false;
     } else {
         elapsedTime++;
@@ -58,7 +58,7 @@ public class LookingForMate : State
 
      public override void OnStateExit()
      {
-          dinosaur.lookingForMate = false;
+          apatosaurus.lookingForMate = false;
      }
     
 }

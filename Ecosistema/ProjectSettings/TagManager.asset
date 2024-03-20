@@ -7,6 +7,8 @@ TagManager:
   - Pasto
   - ApatosaurusTree
   - Water
+  - Apatosaurus
+  - StegosaurusTree
   layers:
   - Default
   - TransparentFX

@@ -30,7 +30,6 @@ public class LookingForWater : State
       
           if(apatosaurus.water != null)
           {
-               Debug.Log("si");
                SteeringBehaviors.Seek(apatosaurus, apatosaurus.water.transform.position);
                float dist = Vector3.Distance(apatosaurus.transform.position, apatosaurus.water.transform.position);
                if(dist < 3)

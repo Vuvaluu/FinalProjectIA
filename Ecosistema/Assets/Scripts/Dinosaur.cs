@@ -1,41 +1,96 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Dinosaur : MonoBehaviour
 {
     [SerializeField] protected float maxSpeed;
     [SerializeField] protected float maxForce;
     [SerializeField] protected float slowingRadius;
+    [SerializeField] protected Rigidbody rb;
     
+    //UI
+    [SerializeField] protected Slider hungerBar;
+    [SerializeField] protected Slider breedingBar;
+    [SerializeField] protected Slider thirstBar;
+    [SerializeField] protected Slider hpBar;
+
     protected int maxHP;
     protected int damage;
     protected int currentHP;
-    [SerializeField] protected Rigidbody rb;
     protected State currentState;
-
+    
     //Necesidades
     protected int currentHunger, maxHunger;
     protected int currentThirst, maxThirst;
     protected int currentRepUrge, maxRepUrge;
 
     public Dinosaur mate;
+    public Water water;
     public bool lookingForMate;
+    public bool lookingForWater;
+    public bool lookingForFood;
+    protected float timePassed = 0f;
+    protected  string priority;
+    protected string oldPriority;
 
     protected virtual void Start()
     {
-        currentHP = maxHP;
+        maxHP = 100;
         maxHunger = 100;
         maxThirst = 100;
         maxRepUrge = 100;
         currentHunger = Random.Range(0, maxHunger/2);
         currentThirst = Random.Range(0, maxThirst/2);
         currentRepUrge = 0;
+        currentHP = maxHP;
+        hungerBar.maxValue = maxHunger;
+        thirstBar.maxValue = maxThirst;
+        breedingBar.maxValue = maxRepUrge;
+        hpBar.maxValue = maxHP;
     }
 
     protected virtual void Update()
     {
         currentState.Update();
+        hungerBar.value = currentHunger;
+        thirstBar.value = currentThirst;
+        breedingBar.value = currentRepUrge;
+        hpBar.value = currentHP;
+        timePassed += Time.deltaTime;
+
+        if(timePassed > 2.5f)
+        {
+            currentHunger ++;
+            currentThirst ++;
+            currentRepUrge ++;
+            timePassed = 0f;
+        }
+
+        if(currentHunger >= currentThirst && currentHunger >= currentRepUrge)
+        {
+            priority = "Hungry";
+        } else if(currentThirst >= currentHunger && currentThirst >= currentRepUrge)
+        {
+            priority = "Thirsty";
+        } else if(currentRepUrge >= currentHunger && currentRepUrge >= currentThirst)
+        {
+            priority = "Horny";
+        } else {
+            priority = "IDLE";
+        }
+    }
+
+    protected void OnCollisionEnter(Collision other)
+    {
+       
+        if(other.gameObject.tag == "ApatosaurusTree" || other.gameObject.tag == "StegosaurusTree")
+        {
+            Physics.IgnoreCollision(other.gameObject.GetComponent <Collider>(), gameObject.GetComponent<Collider>(), true);
+             Debug.Log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        }
+
     }
 
     public void TakeDamage(Dinosaur enemy)
@@ -70,10 +125,20 @@ public class Dinosaur : MonoBehaviour
         }
     }
 
+    public void StopBeingThirsty()
+    {
+
+    }
+
     public void Drink()
     {
-        currentThirst--;
+        currentThirst = currentThirst - 50;
     } 
+
+    public void Breeding()
+    {
+        currentRepUrge = 0; 
+    }
 
     protected void Die()
     {
@@ -104,4 +169,8 @@ public class Dinosaur : MonoBehaviour
         return slowingRadius;
     }
 
+    public string GetPriority()
+    {
+        return priority;
+    }
 }

@@ -33,7 +33,6 @@ public class Wander : State
         if (canMove == true) {
         randX = Random.Range(dinosaur.transform.position.x -300f, dinosaur.transform.position.x +300f);
         randZ = Random.Range(dinosaur.transform.position.z -300f, dinosaur.transform.position.z +300f);
-        Debug.Log(randX);
         canMove = false;
     } else {
         elapsedTime++;

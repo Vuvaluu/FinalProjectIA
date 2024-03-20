@@ -9,13 +9,18 @@ public class DrinkingWater : State
         this.apatosaurus = apato;
     }
 
-   public override void Update()
+    public override void OnStateEnter()
     {
         apatosaurus.Drink();
     }
 
+    public override void Update()
+    {
+        apatosaurus.SetState(new Wander(apatosaurus));
+    }
+
     public override void OnStateExit()
     {
-        apatosaurus.lookingForWater = false;
+
     }
 }

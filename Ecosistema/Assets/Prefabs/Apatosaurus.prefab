@@ -1504,7 +1504,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4084a58242d0ba043928dcd05b0bc1ed, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4084a58242d0ba043928dcd05b0bc1ed, type: 3}
       propertyPath: m_LocalRotation.x
@@ -1512,7 +1512,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4084a58242d0ba043928dcd05b0bc1ed, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4084a58242d0ba043928dcd05b0bc1ed, type: 3}
       propertyPath: m_LocalRotation.z
@@ -1524,14 +1524,50 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4084a58242d0ba043928dcd05b0bc1ed, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4084a58242d0ba043928dcd05b0bc1ed, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6196865421717164516, guid: 4084a58242d0ba043928dcd05b0bc1ed, type: 3}
+      propertyPath: m_TagString
+      value: Apatosaurus
+      objectReference: {fileID: 0}
+    - target: {fileID: -5568371526223589888, guid: 4084a58242d0ba043928dcd05b0bc1ed, type: 3}
+      propertyPath: m_TagString
+      value: Apatosaurus
+      objectReference: {fileID: 0}
+    - target: {fileID: -4752578479023600078, guid: 4084a58242d0ba043928dcd05b0bc1ed, type: 3}
+      propertyPath: m_TagString
+      value: Apatosaurus
+      objectReference: {fileID: 0}
+    - target: {fileID: 173683645019617838, guid: 4084a58242d0ba043928dcd05b0bc1ed, type: 3}
+      propertyPath: m_TagString
+      value: Apatosaurus
+      objectReference: {fileID: 0}
+    - target: {fileID: 741808593568725213, guid: 4084a58242d0ba043928dcd05b0bc1ed, type: 3}
+      propertyPath: m_TagString
+      value: Apatosaurus
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4084a58242d0ba043928dcd05b0bc1ed, type: 3}
       propertyPath: m_Name
+      value: Apatosaurus
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4084a58242d0ba043928dcd05b0bc1ed, type: 3}
+      propertyPath: m_TagString
+      value: Apatosaurus
+      objectReference: {fileID: 0}
+    - target: {fileID: 2376795118216649051, guid: 4084a58242d0ba043928dcd05b0bc1ed, type: 3}
+      propertyPath: m_TagString
+      value: Apatosaurus
+      objectReference: {fileID: 0}
+    - target: {fileID: 6747017686486244373, guid: 4084a58242d0ba043928dcd05b0bc1ed, type: 3}
+      propertyPath: m_TagString
+      value: Apatosaurus
+      objectReference: {fileID: 0}
+    - target: {fileID: 7036213049465896255, guid: 4084a58242d0ba043928dcd05b0bc1ed, type: 3}
+      propertyPath: m_TagString
       value: Apatosaurus
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1607,8 +1643,16 @@ MonoBehaviour:
   maxForce: 2
   slowingRadius: 1
   rb: {fileID: 7333796847668823144}
-  tree: {fileID: 0}
+  hungerBar: {fileID: 4208521340406215807}
+  breedingBar: {fileID: 746982677252389391}
+  thirstBar: {fileID: 2381782448787252809}
+  hpBar: {fileID: 1633034494231523336}
+  mate: {fileID: 0}
+  water: {fileID: 0}
+  lookingForMate: 0
+  lookingForWater: 0
   lookingForFood: 0
+  tree: {fileID: 0}
 --- !u!136 &8860781071401895944
 CapsuleCollider:
   m_ObjectHideFlags: 0

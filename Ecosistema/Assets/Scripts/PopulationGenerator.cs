@@ -5,6 +5,23 @@ using TMPro;
 
 public class PopulationGenerator : MonoBehaviour
 {
+    #region Singleton Pattern
+        private static PopulationGenerator instance;
+        public static PopulationGenerator Instance { 
+            get { 
+                return instance; 
+            } 
+        }
+        
+        private void Awake() {
+            if (instance == null) {
+                instance = this;
+            } else {
+                Destroy(this);
+            }
+            
+        }
+    #endregion
     List<GameObject> grassTiles = new List<GameObject>();
     [SerializeField] LevelGenerator levelGenerator;
     [SerializeField] GameObject apatosaurusPrefab;
@@ -63,5 +80,10 @@ public class PopulationGenerator : MonoBehaviour
         {
             Instantiate(dinosaurPrefab, tile.transform.position + spawnOffset, Quaternion.identity);
         }
+    }
+
+    public void SpawnApatosaurus(Vector3 position)
+    {
+        Instantiate(apatosaurusPrefab, position, Quaternion.identity);
     }
 }
