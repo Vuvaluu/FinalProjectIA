@@ -9,8 +9,6 @@ public class Apatosaurus : Dinosaur
     protected override void Start()
     {
         base.Start();
-        lookingForFood = false;
-        lookingForWater = false;
         SetState(new Wander(this));
     }
 
@@ -46,7 +44,7 @@ public class Apatosaurus : Dinosaur
          
     }
 
-    protected void OnTriggerEnter(Collider other)
+    protected void OnTriggerStay(Collider other)
     {
         if(other.gameObject.CompareTag("ApatosaurusTree") && lookingForFood == true && tree == null)
         {
@@ -68,6 +66,6 @@ public class Apatosaurus : Dinosaur
     public void Eat(Tree t)
     {
         t.TakeDamage();
-        currentHunger = currentHunger - 50;
+        currentHunger = currentHunger - 20;
     }
 }

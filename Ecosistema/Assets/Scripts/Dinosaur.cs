@@ -37,6 +37,7 @@ public class Dinosaur : MonoBehaviour
 
     protected virtual void Start()
     {
+        damage = 30;
         maxHP = 100;
         maxHunger = 100;
         maxThirst = 100;
@@ -49,6 +50,9 @@ public class Dinosaur : MonoBehaviour
         thirstBar.maxValue = maxThirst;
         breedingBar.maxValue = maxRepUrge;
         hpBar.maxValue = maxHP;
+        lookingForFood = false;
+        lookingForWater = false;
+        lookingForMate = false;
     }
 
     protected virtual void Update()
@@ -60,14 +64,15 @@ public class Dinosaur : MonoBehaviour
         hpBar.value = currentHP;
         timePassed += Time.deltaTime;
 
-        if(timePassed > 2.5f)
+        if(timePassed > 3.0f)
         {
-            currentHunger ++;
-            currentThirst ++;
+            currentHunger = currentHunger + 2;
+            currentThirst = currentThirst + 2;
             currentRepUrge ++;
             timePassed = 0f;
         }
 
+        
         if(currentHunger >= currentThirst && currentHunger >= currentRepUrge)
         {
             priority = "Hungry";
@@ -80,15 +85,24 @@ public class Dinosaur : MonoBehaviour
         } else {
             priority = "IDLE";
         }
+        if(currentHunger >= maxHunger || currentThirst >= maxThirst)
+        {
+            Die();
+        }
     }
 
-    protected void OnCollisionEnter(Collision other)
+    protected void OnCollisionStay(Collision other)
     {
        
         if(other.gameObject.tag == "ApatosaurusTree" || other.gameObject.tag == "StegosaurusTree")
         {
             Physics.IgnoreCollision(other.gameObject.GetComponent <Collider>(), gameObject.GetComponent<Collider>(), true);
              Debug.Log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        }
+        if(other.gameObject.tag == gameObject.tag)
+        {
+            Physics.IgnoreCollision(other.gameObject.GetComponent <Collider>(), gameObject.GetComponent<Collider>(), true);
+             Debug.Log("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
         }
 
     }
@@ -132,7 +146,7 @@ public class Dinosaur : MonoBehaviour
 
     public void Drink()
     {
-        currentThirst = currentThirst - 50;
+        currentThirst = currentThirst - 20;
     } 
 
     public void Breeding()

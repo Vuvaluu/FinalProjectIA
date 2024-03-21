@@ -49,7 +49,7 @@ public class LevelGenerator : MonoBehaviour
     bool stepped;
     bool generate;
     bool generatePlants;
-    int numberOfTrees = 100;
+    int numberOfTrees = 50;
     void Start()
     {
         generatePlants = true;

@@ -15,7 +15,7 @@ public class Tree : MonoBehaviour
 
     public void TakeDamage()
     {
-        currenHP = currenHP - 50;
+        currenHP = currenHP - 20;
         if(currenHP <= 0)
         {
             Destroy(gameObject);

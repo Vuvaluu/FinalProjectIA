@@ -86,4 +86,19 @@ public class PopulationGenerator : MonoBehaviour
     {
         Instantiate(apatosaurusPrefab, position, Quaternion.identity);
     }
+
+    public void SpawnStegosaurus(Vector3 position)
+    {
+        Instantiate(stegosaurusPrefab, position, Quaternion.identity);
+    }
+
+     public void SpawnVelociraptor(Vector3 position)
+    {
+        Instantiate(velociraptorPrefab, position, Quaternion.identity);
+    }
+
+    public void SpawnTrex(Vector3 position)
+    {
+        Instantiate(trexPrefab, position, Quaternion.identity);
+    }
 }

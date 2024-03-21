@@ -9,6 +9,9 @@ TagManager:
   - Water
   - Apatosaurus
   - StegosaurusTree
+  - Stegosaurus
+  - Velociraptor
+  - Trex
   layers:
   - Default
   - TransparentFX
